@@ -1,36 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import Message from './Message';
-import NewMessageEntry from './NewMessageEntry';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import Message from "./Message";
+import NewMessageEntry from "./NewMessageEntry";
+import { fetchMessages } from "../features/messages/messagesSlice";
+import { useSelector, useDispatch } from "react-redux";
 
-const MessagesList = (props)=> {
-  const [messages, setMessages] = useState([]);
-  
+const MessagesList = (props) => {
+  const messages = useSelector((state) => state.messages.messages);
+  const dispatch = useDispatch();
 
-  useEffect(()=> {
-    const fetchMessages = async()=> {
-      try {
-        const response = await axios.get('/api/messages');
-        const messages = response.data;
-        setMessages(messages);
-      }
-      catch(ex){
-        console.log(ex);
-      }
-    }; 
-    fetchMessages();
+  useEffect(() => {
+    dispatch(fetchMessages());
   }, []);
 
-
-
-    return (
-      <div>
-        <ul className="media-list">
-          { messages.filter( message => message.channelId === props.match.params.channelId*1).map(message => <Message message={message} key={message.id} />) }
-        </ul>
-        <NewMessageEntry />
-      </div>
-    );
-}
+  return (
+    <div>
+      <ul className="media-list">
+        {messages
+          ? messages
+              .filter(
+                (message) =>
+                  message.channelId === props.match.params.channelId * 1
+              )
+              .map((message) => <Message message={message} key={message.id} />)
+          : null}
+      </ul>
+      <NewMessageEntry />
+    </div>
+  );
+};
 
 export default MessagesList;
