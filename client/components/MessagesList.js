@@ -24,7 +24,7 @@ const MessagesList = (props) => {
               .map((message) => <Message message={message} key={message.id} />)
           : null}
       </ul>
-      <NewMessageEntry />
+      <NewMessageEntry channelId={props.match.params.channelId} />
     </div>
   );
 };

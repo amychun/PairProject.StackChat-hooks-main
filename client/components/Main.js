@@ -1,10 +1,10 @@
-import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import Sidebar from './Sidebar';
-import Navbar from './Navbar';
-import MessagesList from './MessagesList';
+import React from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import MessagesList from "./MessagesList";
 
-const Main = () =>  {
+const Main = () => {
   return (
     <div>
       <Sidebar />
@@ -17,6 +17,6 @@ const Main = () =>  {
       </main>
     </div>
   );
-}
+};
 
 export default Main;
